@@ -76,7 +76,7 @@ public class PaymentController {
         // 一个微服务(CLOUD-PAYMENT-SERVICE)下的全部实例(payment8002、payment8001)
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
         for (ServiceInstance instance : instances) {
-            log.debug(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + instance.getUri());
+            log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + instance.getUri());
         }
         return this.discoveryClient;
     }
