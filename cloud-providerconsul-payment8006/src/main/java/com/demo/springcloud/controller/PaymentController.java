@@ -17,7 +17,6 @@ public class PaymentController {
     private String serverPort;
 
     /**
-     * http://localhost:8006/payment/zk
      *
      * @return
      */

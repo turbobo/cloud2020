@@ -3,6 +3,8 @@ package com.demo.springcloud.controller;
 import com.demo.springcloud.entities.CommonResult;
 import com.demo.springcloud.entities.Payment;
 import com.demo.springcloud.service.PaymentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -23,6 +25,7 @@ import java.util.List;
 * 就不能返回jsp,html页面，视图解析器无法解析jsp,html页面*/
 @RestController
 @Slf4j  //日志
+@Api(value = "支付Controller", tags = { "支付访问接口" })
 public class PaymentController {
     @Resource
     private PaymentService paymentService;
@@ -51,6 +54,7 @@ public class PaymentController {
         }
     }
 
+    @ApiOperation(value = "查询记录")
     @GetMapping(value = "/payment/get/{id}")     //get读操作
     public CommonResult getPaymentById(@PathVariable("id") Long id){
         Payment payment = paymentService.getPaymentById(id);

@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping("/consumer/payment/getForEntity/{id}")
     public CommonResult<Payment> getPayment2(@PathVariable("id") Long id) {
-        //返回entity对象，包括响应头等信息
+        //返回entity对象，包括响应头等详细信息
         ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
         if (entity.getStatusCode().is2xxSuccessful()) {
             log.info(entity.getStatusCode().toString()+"\t");
