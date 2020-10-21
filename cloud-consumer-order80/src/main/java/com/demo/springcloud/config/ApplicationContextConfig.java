@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ApplicationContextConfig {
     @Bean
-    @LoadBalanced  //赋予RestTemplate负载均衡的能力   8001和8002端口交替使用
+//    @LoadBalanced  //赋予RestTemplate负载均衡的能力   8001和8002端口交替使用
     public RestTemplate getRestTemplate(){
         return  new RestTemplate();
     }

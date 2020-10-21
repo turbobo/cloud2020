@@ -1,4 +1,4 @@
-package com.demo.springcloud.controller;
+package com.demo.springcloud;
 
 /**
  * @Author Jusven

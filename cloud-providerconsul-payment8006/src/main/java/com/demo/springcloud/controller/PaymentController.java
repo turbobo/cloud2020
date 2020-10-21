@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
-/**
- * @Author Jusven
- * @Date 2020/10/13 9:40
- */
+
 @RestController
 @Slf4j
 public class PaymentController {
@@ -17,6 +14,7 @@ public class PaymentController {
     private String serverPort;
 
     /**
+     * http://localhost:8006/payment/zk
      *
      * @return
      */
