@@ -52,12 +52,15 @@ public class PaymentService {
     })
     public String paymentCircuitBreaker(@PathVariable("id") Integer id){
         if (id < 0){
+            //跳到熔断方法  当访问错误的次数过多，达到60%之后，此时输入正确值仍然熔断；
+            // 过一段时间后，错误率降下来后，输入正确值才能正确访问
             throw new RuntimeException("*****id 不能负数");
         }
         String serialNumber = IdUtil.simpleUUID();
 
         return Thread.currentThread().getName()+"\t"+"调用成功,流水号："+serialNumber;
     }
+    //熔断兜底方法
     public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id){
         return "id 不能负数，请稍候再试,(┬＿┬)/~~     id: " +id;
     }

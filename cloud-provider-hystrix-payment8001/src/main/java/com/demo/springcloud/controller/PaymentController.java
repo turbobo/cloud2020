@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 
 @RestController
 @Slf4j
+
 public class PaymentController {
 
     @Resource
@@ -30,10 +31,19 @@ public class PaymentController {
         return result;
     }
 
+
     //大规模访问时，每个线程需要3秒，会导致访问本微服务的其他接口也会变慢
     @GetMapping("/payment/hystrix/timeout/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id){
         String result = paymentService.paymentInfo_TimeOut(id);
+        log.info("*******result:"+result);
+        return result;
+    }
+
+    //=======================服务熔断
+    @GetMapping("/payment/circuit/{id}")
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id){
+        String result = paymentService.paymentCircuitBreaker(id);
         log.info("*******result:"+result);
         return result;
     }
