@@ -1,36 +1,3 @@
-#server:
-#  port: 9527
-#spring:
-#  application:
-#    name: cloud-gateway
-#  cloud:
-#    gateway:
-#      discovery:
-#        locator:
-#          enabled: true  #开启从注册中心动态创建路由的功能，利用微服务名进行路由
-#      routes:   #多个路由
-#        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
-##          uri: http://localhost:8001   #匹配后提供服务的路由地址   跟8001的/payment/get/**匹配，匹配就路由过去
-#          uri: lb://cloud-payment-service
-#          predicates:
-#            - Path=/payment/get/**   #断言,路径相匹配的进行路由
-#
-#        - id: payment_routh2
-##          uri: http://localhost:8001  #一个服务提供者时，端口写死
-#          uri: lb://cloud-payment-service
-#          predicates:
-#            - Path=/payment/lb/**   #断言,路径相匹配的进行路由
-#
-#
-#eureka:
-#  instance:
-#    hostname: cloud-gateway-service
-#  client:
-#    service-url:
-#      register-with-eureka: true
-#      fetch-registry: true
-#      defaultZone: http://eureka7001.com:7001
-
 server:
   port: 9527
 
@@ -41,23 +8,36 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名称j进行路由
+          enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名称cloud-payment-service进行路由  9527动态调用8001、8002
       routes:
         - id: payment_route # 路由的id,没有规定规则但要求唯一,建议配合服务名
           #匹配后提供服务的路由地址
-          uri: http://localhost:8001
+#          uri: http://localhost:8001   #固定地址
+          uri: lb://cloud-payment-service    #匹配后提供服务的路由地址
           predicates:
             - Path=/payment/get/** # 断言，路径相匹配的进行路由
+
         - id: payment_route2
-          uri: http://localhost:8001
-          predicates:
-            Path=/payment/lb/** #断言,路径相匹配的进行路由
+#          uri: http://localhost:8001
+          uri: lb://cloud-payment-service    #匹配后提供服务的路由地址   ---路由---
+          predicates:     #---断言---
+            - Path=/payment/lb/** #断言,路径相匹配的进行路由
+            # 路由条件(条件叠加)
+#            - After=2020-11-23T10:19:04.759+08:00[Asia/Shanghai]  #指定时间后执行
+                #- Before=2017-01-20T17:42:47.789-07:00[America/Denver]
+#            - Cookie=username,zzyy   #带符合规则cookie------> curl http://localhost:9527/payment/lb --cookie "username=zzyy"
+#            - Header=X-Request-Id, \d+  #请求头要有X-Request-Id属性，并且值为正数-->curl http://localhost:9527/payment/lb -H "X-Request-Id:123"
+                #- Host=**.atguigu.com  -->curl http://localhost:9527/payment/lb -H Host: www.atguigu.com"
+#            - Method=GET,POST   #get请求才可以
+                #- Query=username, \d+ # 要有参数名username并且值还要是正整数才能路由 -->   http://localhost:9527/payment/lb?username=32
+#            filters:   #--过滤---
+#              - AddRequestHeader=X-Request-red, blue  #官网定义拦截器模板
 
 eureka:
   instance:
     hostname: cloud-gateway-service
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: true   #注册到eureka服务端 注册中心
+    register-with-eureka: true   #需要去 eureka注册中心抓取已有的注册信息
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka/
+      defaultZone: http://localhost:7001/eureka
