@@ -1,0 +1,18 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center  #可以作为配置文件的名称如  cloud-config-center-prod/test/dev
+  cloud:
+    config:
+      server:
+        git:
+          uri:  https://github.com/turbobo/springcloud-config.git   #填写你自己的github路径
+          search-paths:
+            - springcloud-config  #搜索目录
+      label: master  #默认打开的分支
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
