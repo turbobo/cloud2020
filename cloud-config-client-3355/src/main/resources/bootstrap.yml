@@ -6,10 +6,15 @@ spring:
     name: config-client
   cloud:
     config:
-      label: test #分支
+      label: master #分支
       name: config  #服务名
-      profile: test  #环境
+      profile: dev  #环境
       uri: http://localhost:3344  #中心端地址
+  rabbitmq: #rabbitmq相关配置，15672是web管理端口，5672是mq访问端口
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
 eureka:
   client:
     service-url:
