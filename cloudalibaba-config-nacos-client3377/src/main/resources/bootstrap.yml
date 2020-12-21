@@ -11,5 +11,8 @@ spring:
       config:
         server-addr: localhost:8848 #配置中心地址
         file-extension: yaml #指定yaml格式的配置
+        group: TEST_GROUP
+        namespace: 6ef36c13-7e68-47af-ac14-342744f39d3f
 
 
+#  ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
